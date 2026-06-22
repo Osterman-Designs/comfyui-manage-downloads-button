@@ -41,14 +41,22 @@ Re-run setup after upgrading `comfyui-manager` — the installer vendors Manager
    comfyui-manage-downloads-button\setup_model_manager.bat
    ```
 
-3. Edit `ComfyUI\user\__manager\config.ini`:
+3. To remove the deployed extension later:
+
+   ```bat
+   comfyui-manage-downloads-button\uninstall_model_manager.bat
+   ```
+
+   This deletes `custom_nodes/comfy-manager-bridge`, restores `comfyui-manager.orig` if setup renamed it, and reverses an optional pip patch. Saved API tokens are kept.
+
+4. Edit `ComfyUI\user\__manager\config.ini`:
 
    ```ini
    [default]
    allow_git_url_install = true
    ```
 
-4. Start ComfyUI with `--enable-manager` and **restart** after backend changes. Use **Ctrl+Shift+R** in the browser after JS changes.
+5. Start ComfyUI with `--enable-manager` and **restart** after backend changes. Use **Ctrl+Shift+R** in the browser after JS changes.
 
 ## Configure
 
@@ -79,7 +87,8 @@ extension/comfy-manager-bridge/
   __init__.py
   js/                     # Bridge UI + patched Manager frontend modules
 patches/                  # Optional pip-package patch files
-setup_model_manager.bat   # Deploy into custom_nodes/comfy-manager-bridge
+setup_model_manager.bat     # Deploy into custom_nodes/comfy-manager-bridge
+uninstall_model_manager.bat # Remove deployed extension + undo pip patch
 ```
 
 Setup copies vendored Manager assets from:
