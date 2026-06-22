@@ -42,6 +42,35 @@ const FOLDER_INFERENCE_RULES = [
 	{ folder: "gligen", test: (text) => /gligen/i.test(text) },
 ];
 
+const FOLDER_CHEAT_SHEET_HTML = `
+<details class="cmb-import-folder-guide">
+	<summary>Which folder? Quick reference</summary>
+	<p class="cmb-import-folder-guide-lead">Match the <strong>loader node</strong> you will use, not the download site.</p>
+	<table class="cmb-import-folder-guide-table">
+		<thead>
+			<tr><th>Folder</th><th>Use for</th></tr>
+		</thead>
+		<tbody>
+			<tr><td><code>checkpoints</code></td><td>Full base models (Load Checkpoint)</td></tr>
+			<tr><td><code>loras</code></td><td>LoRA / LyCORIS add-ons</td></tr>
+			<tr><td><code>vae</code></td><td>Standalone VAE files</td></tr>
+			<tr><td><code>vae_approx</code></td><td>TAESD preview decoders</td></tr>
+			<tr><td><code>controlnet</code></td><td>ControlNet / T2I-Adapter</td></tr>
+			<tr><td><code>clip_vision</code></td><td>CLIP Vision, SigLIP, IPAdapter image encoders</td></tr>
+			<tr><td><code>text_encoders</code></td><td>T5, UMT5, standalone text encoders</td></tr>
+			<tr><td><code>diffusion_models</code></td><td>UNet / diffusion weights only</td></tr>
+			<tr><td><code>embeddings</code></td><td>Textual inversion / small embedding files</td></tr>
+			<tr><td><code>upscale_models</code></td><td>ESRGAN / Real-ESRGAN pixel upscalers</td></tr>
+			<tr><td><code>latent_upscale_models</code></td><td>Latent upscalers</td></tr>
+			<tr><td><code>gligen</code></td><td>GLIGEN models</td></tr>
+			<tr><td><code>hypernetworks</code></td><td>Hypernetworks</td></tr>
+			<tr><td><code>photomaker</code></td><td>PhotoMaker</td></tr>
+		</tbody>
+	</table>
+	<p class="cmb-import-folder-guide-tip">HF: check page tags and README — <code>model.safetensors</code> alone is not enough. Civitai: use the model type on the page. Extra folders in the list come from your ComfyUI paths.</p>
+</details>
+`;
+
 const PROVIDERS = {
 	huggingface: {
 		label: "Hugging Face",
@@ -413,6 +442,7 @@ export function createImportPanel(providerId) {
 		<label class="cmb-import-label">Install to folder</label>
 		<select class="cmb-import-folder p-inputtext p-component"></select>
 		<p class="cmb-import-folder-hint">Suggested from the URL/filename when detected. Change anytime.</p>
+		${FOLDER_CHEAT_SHEET_HTML}
 		<label class="cmb-import-label">Filename (optional)</label>
 		<input type="text" class="cmb-import-filename p-inputtext p-component" placeholder="Auto-detected from URL" spellcheck="false" />
 		<p class="cmb-import-hint">${config.hint}</p>

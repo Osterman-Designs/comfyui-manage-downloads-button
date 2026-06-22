@@ -293,6 +293,59 @@
 	opacity: 0.85;
 }
 
+.cmb-import-folder-guide {
+	margin: 0 0 12px;
+	padding: 10px 12px;
+	border: 1px solid var(--border-color, #333);
+	border-radius: 8px;
+	background: rgba(0, 0, 0, 0.15);
+	font-size: 12px;
+	color: var(--descrip-text, #aaa);
+}
+
+.cmb-import-folder-guide summary {
+	cursor: pointer;
+	font-weight: 600;
+	color: var(--fg-color, #ddd);
+	list-style-position: outside;
+}
+
+.cmb-import-folder-guide-lead {
+	margin: 8px 0 6px;
+	line-height: 1.45;
+}
+
+.cmb-import-folder-guide-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 11px;
+	line-height: 1.35;
+}
+
+.cmb-import-folder-guide-table th,
+.cmb-import-folder-guide-table td {
+	padding: 4px 6px;
+	text-align: left;
+	vertical-align: top;
+	border-top: 1px solid var(--border-color, #333);
+}
+
+.cmb-import-folder-guide-table th {
+	color: var(--fg-color, #ccc);
+	font-weight: 600;
+}
+
+.cmb-import-folder-guide-table code {
+	font-size: 11px;
+	white-space: nowrap;
+}
+
+.cmb-import-folder-guide-tip {
+	margin: 8px 0 0;
+	line-height: 1.45;
+	opacity: 0.9;
+}
+
 .cmb-import-hint code {
 	font-size: 12px;
 	color: var(--descrip-text, #bbb);
