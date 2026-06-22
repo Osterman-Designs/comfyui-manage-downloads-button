@@ -2,6 +2,17 @@
 
 Use this file at the start of a new session when continuing work on this project.
 
+## Documentation index
+
+| Document | Audience | Contents |
+|----------|----------|----------|
+| [README.md](README.md) | End users | Install, uninstall, configure, troubleshoot |
+| [docs/PROJECT-INDEX.md](docs/PROJECT-INDEX.md) | Developers / agents | Full file tree, deploy mapping, vendored assets, runtime paths |
+| [docs/REFERENCE.md](docs/REFERENCE.md) | Developers / agents | HTTP API, config keys, JS/Python symbols, WebSocket events, CSS, security, test URLs |
+| **AGENTS.md** (this file) | New AI sessions | Environment, constraints, test history, quick debug |
+
+**New session prompt example:** *Read `AGENTS.md`, `docs/PROJECT-INDEX.md`, and `docs/REFERENCE.md` in Osterman-Designs/comfyui-manage-downloads-button, then …*
+
 ## What this is
 
 Community extension that brings **ComfyUI-Manager’s model download catalog and import hub** to the **new ComfyUI frontend** (without `--enable-manager-legacy-ui`).

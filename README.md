@@ -8,7 +8,7 @@ This is a community extension for [ComfyUI](https://github.com/comfyanonymous/Co
 
 **Search terms:** ComfyUI download manager, ComfyUI model downloads, ComfyUI Manager model catalog, download models new UI, Civitai/Hugging Face import for ComfyUI.
 
-**Continuing development?** See [AGENTS.md](AGENTS.md) for session handoff context (paths, architecture, tests, constraints).
+**Continuing development?** See [AGENTS.md](AGENTS.md) and [docs/](docs/) for session handoff, project index, and API reference.
 
 ## What you get
 
@@ -134,6 +134,14 @@ uninstall_model_manager.bat # Remove deployed extension + undo pip patch
 Setup copies vendored Manager assets from:
 
 `python_embeded/Lib/site-packages/comfyui_manager/js/`
+
+## Documentation
+
+| Doc | Description |
+|-----|-------------|
+| [AGENTS.md](AGENTS.md) | Session handoff for contributors and AI agents |
+| [docs/PROJECT-INDEX.md](docs/PROJECT-INDEX.md) | Complete file inventory and deploy mapping |
+| [docs/REFERENCE.md](docs/REFERENCE.md) | HTTP API, config, JS/Python module reference |
 
 ## Troubleshooting
 
