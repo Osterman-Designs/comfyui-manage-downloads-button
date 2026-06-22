@@ -71,15 +71,38 @@ Re-run setup after upgrading `comfyui-manager` — the installer vendors Manager
 
 ## Configure
 
-Edit variables at the top of `setup_model_manager.bat` before running setup:
+Edit variables at the top of `setup_model_manager.bat`, then re-run setup from your portable root. Setup writes them into `ComfyUI/custom_nodes/comfy-manager-bridge/js/bridge-config.json`.
 
-| Variable | Default | Meaning |
-|----------|---------|---------|
-| `MANAGER_BTN` | `float` | `float` = canvas FAB, `off` = hide bridge UI |
-| `QUICK_CATALOG` | `0` | `1` = extra Download Models FAB (float mode only) |
-| `APPLY_PIP_PATCH` | `0` | `1` = patch pip `comfyui_manager` instead of custom-node backend |
+For a one-off change without re-running setup, edit that `bridge-config.json` directly and hard refresh the browser (`Ctrl+Shift+R`).
 
-Default backend loads routes from the deployed custom node (`bridge_backend.py`). Pip patch mode is an escape hatch after Manager upgrades.
+### `MANAGER_BTN` — bridge entry point on the canvas
+
+| Value | What you see |
+|-------|----------------|
+| **`float`** (default) | A draggable **Manager** FAB on the graph. Click it for Download Models, Git URL install, unload/free/restart. |
+| **`off`** | No bridge buttons or menu. Backend routes still load, but there is **no UI** to open the download hub. |
+
+**When to use `float`:** Normal use. This is the whole point of the extension — Manager’s download catalog on the new frontend without legacy UI.
+
+**When to use `off`:** Rare. Examples: you only want the backend routes (e.g. testing or automation) and will open nothing in the UI; you’re troubleshooting whether the FAB conflicts with another overlay; or you temporarily want ComfyUI without the extra canvas button but don’t want to uninstall. If you hide the UI, use **Manage extensions** in ComfyUI for custom nodes — you won’t get the download hub from this extension until you switch back to `float` or run uninstall.
+
+### `QUICK_CATALOG` — second FAB (float mode only)
+
+| Value | Meaning |
+|-------|---------|
+| **`0`** (default) | One **Manager** FAB; Download Models opens from its menu. |
+| **`1`** | Adds a second FAB that opens the download hub directly (skips the Manager menu). |
+
+Use `1` if you open the catalog often and want one less click. Ignored when `MANAGER_BTN=off`.
+
+### `APPLY_PIP_PATCH` — where backend routes load from
+
+| Value | Meaning |
+|-------|---------|
+| **`0`** (default) | Routes load from the deployed custom node (`bridge_backend.py`). Safer across Manager pip upgrades. |
+| **`1`** | Patches the pip `comfyui_manager` package instead. Escape hatch if the custom-node path breaks after a Manager update. Re-apply after each Manager upgrade; use uninstall to restore pip files. |
+
+Most users should leave this at **`0`**.
 
 ## API tokens
 
