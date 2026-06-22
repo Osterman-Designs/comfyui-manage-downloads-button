@@ -1,6 +1,6 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js";
-import { $el, ComfyDialog } from "./bridge-ui.js";
+import { $el, ComfyDialog } from "../../scripts/ui.js";
 import { getBestPosition, getPositionStyle, getRect } from './popover-helper.js';
 
 

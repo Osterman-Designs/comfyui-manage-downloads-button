@@ -1,5 +1,5 @@
 import { app } from "../../scripts/app.js";
-import { $el } from "./bridge-ui.js";
+import { $el } from "../../scripts/ui.js";
 import { 
 	manager_instance, rebootAPI, 
 	fetchData, md5, icons, show_message, customAlert, infoToast, showTerminal,
@@ -164,7 +164,7 @@ export class ModelManager {
 
 			".cmm-manager-refresh": {
 				click: () => {
-					this.applyCatalogRefresh();
+					app.refreshComboInNodes();
 				}
 			},
 
@@ -404,30 +404,6 @@ export class ModelManager {
 		}
 	}
 
-	markItemInstalled(item) {
-		item.installed = "True";
-		item.refresh = false;
-		item.selectable = false;
-		if (this.grid) {
-			this.grid.setRowSelected(item, false);
-			this.grid.updateCell(item, "installed");
-		}
-	}
-
-	applyCatalogRefresh() {
-		app.refreshComboInNodes();
-
-		if (this.modelList && this.grid) {
-			for (const item of this.modelList) {
-				if (item.refresh) {
-					this.markItemInstalled(item);
-				}
-			}
-		}
-
-		this.showMessage("");
-	}
-
 	// ===========================================================================================
 
 	renderSelected() {
@@ -571,31 +547,20 @@ export class ModelManager {
 				errorMsg += v + '\n';
 		}
 
-		let successCount = 0;
-
 		for(let k in self.install_context.targets) {
 			let item = self.install_context.targets[k];
-			const outcome = result[item.hash];
-
-			if (outcome === "success") {
-				self.markItemInstalled(item);
-				successCount++;
-			} else {
-				item.refresh = false;
-				self.grid.updateCell(item, "installed");
-			}
+			self.grid.updateCell(item, "installed");
 		}
 
 		if (errorMsg) {
 			self.showError(errorMsg);
 			show_message("Installation Error:\n"+errorMsg);
 		} else {
-			app.refreshComboInNodes();
-			self.showMessage("");
-			self.showStatus(`Installed ${successCount} model(s) successfully`);
+			self.showStatus(`Install ${result.length} models successfully`);
 		}
 
 		self.showRefresh();
+		self.showMessage(`To apply the installed model, please click the 'Refresh' button.`, "red")
 
 		infoToast('Tasks done', `[ComfyUI-Manager] All model downloading tasks in the queue have been completed.\n${info.done_count}/${info.total_count}`);
 		self.install_context = undefined;

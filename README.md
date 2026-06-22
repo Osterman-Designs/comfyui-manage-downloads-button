@@ -75,9 +75,39 @@ Re-run setup after upgrading `comfyui-manager` — the installer vendors Manager
 
 6. Start ComfyUI with `--enable-manager` and **restart** after backend changes. Use **Ctrl+Shift+R** in the browser after JS changes.
 
+### Install via Git URL (ComfyUI Manager)
+
+The repo root **is** the custom node package. ComfyUI Manager can install it directly:
+
+1. Open **Manage extensions** in ComfyUI (requires `--enable-manager`).
+2. **Install custom node from Git URL**
+3. URL:
+
+   ```
+   https://github.com/Osterman-Designs/comfyui-manage-downloads-button.git
+   ```
+
+4. Target folder name: **`comfy-manager-bridge`** (recommended)
+5. Manager runs **`install.py`** automatically — vendors pip Manager JS into `js/`.
+6. Set `allow_git_url_install = true` in `config.ini` if you use Git URL custom node installs.
+7. **Restart ComfyUI** and hard refresh the browser.
+
+After a **`comfyui-manager` pip upgrade**, re-run vendoring:
+
+```bat
+cd /d ComfyUI\custom_nodes\comfy-manager-bridge
+..\..\..\python_embeded\python.exe install.py
+```
+
+(or use the portable **clone + setup** path below instead)
+
+### Portable clone + setup (recommended for portable users)
+
+Same as steps 1–6 above — clone as a sibling folder and run `setup_model_manager.bat`, which deploys to `custom_nodes/comfy-manager-bridge` and supports uninstall/reinstall.
+
 ## Configure
 
-Edit variables at the top of `setup_model_manager.bat`, then re-run setup from your portable root. Setup writes them into `ComfyUI/custom_nodes/comfy-manager-bridge/js/bridge-config.json`.
+Edit variables at the top of `tools\setup_model_manager.bat` (or the root wrapper), then re-run setup from your portable root. Setup writes them into `ComfyUI/custom_nodes/comfy-manager-bridge/js/bridge-config.json`.
 
 For a one-off change without re-running setup, edit that `bridge-config.json` directly and hard refresh the browser (`Ctrl+Shift+R`).
 

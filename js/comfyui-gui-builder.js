@@ -1,4 +1,4 @@
-import { $el } from "./bridge-ui.js";
+import { $el } from "../../scripts/ui.js";
 
 function normalizeContent(content) {
 	const tmp = document.createElement('div');

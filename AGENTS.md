@@ -40,26 +40,23 @@ Community extension that brings **ComfyUI-Manager’s model download catalog and
 ## Architecture
 
 ```
-manager-bridge/                    ← git repo root (source of truth)
-├── bridge_routes.py               → deployed as bridge_backend.py
+comfyui-manage-downloads-button/   ← repo root = custom node package (Git URL install)
+├── __init__.py                    → loads bridge_backend.enable() if --enable-manager
+├── bridge_backend.py              → HTTP routes
 ├── bridge_api_keys.py
-├── setup_model_manager.bat        → deploy + write bridge-config.json
-├── uninstall_model_manager.bat    → remove deploy + undo pip patch
-├── extension/comfy-manager-bridge/
-│   ├── __init__.py                → loads bridge_backend.enable() if --enable-manager
-│   └── js/
-│       ├── bridge.js              → FAB + Manager menu
-│       ├── model-hub.js           → Download Models dialog + tabs
-│       ├── import-url.js          → HF / Civitai / GitHub / Other URL panels
-│       ├── bridge-ui.js           → $el / ComfyDialog (no deprecated ui.js)
-│       ├── model-manager.js       → patched catalog grid (from pip + local patches)
-│       └── bridge-config.json     → generated: button, quickCatalog, defaultModelTab
-└── patches/                       → optional APPLY_PIP_PATCH=1 escape hatch
+├── bridge_install.py              → shared setup / install / uninstall logic
+├── install.py                     → Manager Git URL hook
+├── js/                            → bridge.js, model-hub.js, import-url.js, …
+├── tools/setup_model_manager.bat  → portable deploy (sibling clone workflow)
+└── patches/                       → optional APPLY_PIP_PATCH=1
 ```
 
-Setup **vendors** these from pip Manager: `model-manager.js`, `common.js`, `model-manager.css`, `turbogrid.esm.js`, `comfyui-gui-builder.js`, `popover-helper.js` — then overwrites with repo copies where patched.
+**Two install paths:**
 
-Default backend: routes in **custom node** (`bridge_backend.py`). Pip patch mode is off by default.
+1. **Git URL** → `custom_nodes/comfy-manager-bridge` → `install.py` vendors pip JS in place  
+2. **Sibling clone + setup bat** → deploys to `custom_nodes/comfy-manager-bridge`
+
+Setup **vendors** pip Manager JS, then overwrites patched files from `js/`.
 
 ## Backend routes (bridge only)
 
@@ -89,6 +86,8 @@ manager-bridge\setup_model_manager.bat
 manager-bridge\uninstall_model_manager.bat
 ```
 
+Or: `python bridge_install.py setup` / `install.py` from the custom node directory (Git install layout).
+
 After **backend** changes: restart ComfyUI. After **JS** changes: `Ctrl+Shift+R`.
 
 Re-run setup after **comfyui-manager pip upgrades**.
@@ -111,6 +110,7 @@ Re-run setup after **comfyui-manager pip upgrades**.
 | Other URL (Meta SAM `.pt`) | OK (removed) |
 | Uninstall → reinstall cycle | OK after portable-root detection fix |
 | Browse catalog after reinstall | User confirmed ComfyUI + Hub up |
+| Flattened Git-installable layout + install.py | OK (install.py, setup, in-place refresh, uninstall) |
 
 ## Known fixes already shipped
 

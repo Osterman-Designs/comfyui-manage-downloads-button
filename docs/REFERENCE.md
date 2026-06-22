@@ -254,7 +254,18 @@ Patched Manager utilities. Notable exports: `setManagerInstance`, `fetchData`, `
 
 ## Python module reference
 
-### `bridge_routes.py` / `bridge_backend.py`
+### `bridge_install.py` / `install.py`
+
+| Entry | Description |
+|-------|-------------|
+| `python bridge_install.py setup` | Deploy sibling clone or refresh Git install in place |
+| `python bridge_install.py uninstall` | Remove deploy or strip vendored pip JS (Git layout) |
+| `python install.py` | Manager Git URL hook; same vendoring as setup refresh |
+| `python bridge_install.py install` | Alias of `install.py` |
+
+CLI env overrides for setup: `CMB_MANAGER_BTN`, `CMB_QUICK_CATALOG`, `CMB_APPLY_PIP_PATCH`.
+
+### `bridge_backend.py`
 
 | Function | Description |
 |----------|-------------|

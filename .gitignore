@@ -7,7 +7,12 @@
 # Pip-patch backup created on first optional patch run
 patches/__init__.py.original
 
-# Python
+# Vendored from pip during install.py / setup (do not commit)
+js/model-manager.css
+js/turbogrid.esm.js
+js/popover-helper.js
+
+.gitignore
 __pycache__/
 *.py[cod]
 *.pyo
