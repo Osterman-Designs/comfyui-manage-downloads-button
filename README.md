@@ -29,34 +29,45 @@ Re-run setup after upgrading `comfyui-manager` — the installer vendors Manager
 
 ## Install
 
-1. Clone into your ComfyUI **portable root** (same folder as `run_nvidia_gpu.bat`):
+1. Open a command prompt and go to your ComfyUI **portable root** (the folder that contains `ComfyUI\`, `python_embeded\`, and `run_nvidia_gpu.bat`):
+
+   ```bat
+   cd /d E:\Storage\AI\ComfyUI_windows_portable
+   ```
+
+   Use your actual portable path — not your user profile folder.
+
+2. Clone this repo into that folder:
 
    ```bat
    git clone https://github.com/Osterman-Designs/comfyui-manage-downloads-button.git
    ```
 
-2. Run setup:
+3. From the **same portable root**, run setup:
 
    ```bat
    comfyui-manage-downloads-button\setup_model_manager.bat
    ```
 
-3. To remove the deployed extension later:
+   You should see `Portable root:` pointing at your portable folder (not `C:\Users\...`). If setup or uninstall targets the wrong folder, `cd` to portable root and run again.
+
+4. To remove the deployed extension later, again from portable root:
 
    ```bat
+   cd /d E:\Storage\AI\ComfyUI_windows_portable
    comfyui-manage-downloads-button\uninstall_model_manager.bat
    ```
 
    This deletes `custom_nodes/comfy-manager-bridge`, restores `comfyui-manager.orig` if setup renamed it, and reverses an optional pip patch. Saved API tokens are kept.
 
-4. Edit `ComfyUI\user\__manager\config.ini`:
+5. Edit `ComfyUI\user\__manager\config.ini`:
 
    ```ini
    [default]
    allow_git_url_install = true
    ```
 
-5. Start ComfyUI with `--enable-manager` and **restart** after backend changes. Use **Ctrl+Shift+R** in the browser after JS changes.
+6. Start ComfyUI with `--enable-manager` and **restart** after backend changes. Use **Ctrl+Shift+R** in the browser after JS changes.
 
 ## Configure
 
@@ -99,7 +110,8 @@ Setup copies vendored Manager assets from:
 
 | Issue | Fix |
 |-------|-----|
-| Setup can’t find portable root | Clone repo as a sibling of `ComfyUI\` and `python_embeded\` |
+| Setup/uninstall uses wrong `Portable root:` (e.g. `C:\Users\...`) | `cd /d` to your portable folder first, then run the `.bat` |
+| Setup can’t find portable root | Clone repo as a sibling of `ComfyUI\` and `python_embeded\`, then run from that folder |
 | Missing manager JS dependency | Install/start ComfyUI once with `--enable-manager` so pip Manager is present |
 | Git URL install blocked | Set `allow_git_url_install = true` in `config.ini` and restart |
 | Catalog 500 / empty after update | Re-run `setup_model_manager.bat`, restart ComfyUI |
