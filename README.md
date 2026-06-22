@@ -8,6 +8,8 @@ This is a community extension for [ComfyUI](https://github.com/comfyanonymous/Co
 
 **Search terms:** ComfyUI download manager, ComfyUI model downloads, ComfyUI Manager model catalog, download models new UI, Civitai/Hugging Face import for ComfyUI.
 
+**Continuing development?** See [AGENTS.md](AGENTS.md) for session handoff context (paths, architecture, tests, constraints).
+
 ## What you get
 
 - Floating **Manager** button on the graph (configurable)
