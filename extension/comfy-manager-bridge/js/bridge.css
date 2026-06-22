@@ -1,0 +1,393 @@
+/* --- FAB stack: fixed over graph canvas (position set in bridge.js) --- */
+#cmb-fab-stack {
+	position: fixed !important;
+	pointer-events: auto !important;
+	z-index: 10000 !important;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.cmb-fab {
+	min-width: 120px;
+	padding: 8px 14px;
+	border-radius: 8px;
+	border: 1px solid var(--border-color, #444);
+	background: var(--comfy-menu-bg, rgba(20, 20, 20, 0.92));
+	color: var(--fg-color, #eee);
+	cursor: grab;
+	font-size: 13px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.cmb-fab.cmb-fab-dragging {
+	cursor: grabbing;
+}
+
+.cmb-fab:hover {
+	filter: brightness(1.08);
+}
+
+.cmb-fab-primary {
+	background: var(--primary-bg, #2563eb);
+	border-color: var(--primary-bg, #2563eb);
+	color: #fff;
+	font-weight: 600;
+}
+
+/* --- Manager popup menu --- */
+#cmb-manager-menu {
+	position: fixed;
+	z-index: 10001;
+	min-width: 220px;
+	padding: 6px;
+	border-radius: 8px;
+	border: 1px solid var(--border-color, #444);
+	background: var(--comfy-menu-bg, rgba(20, 20, 20, 0.96));
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+#cmb-manager-menu[hidden] {
+	display: none !important;
+}
+
+.cmb-menu-item {
+	display: block;
+	width: 100%;
+	text-align: left;
+	padding: 8px 10px;
+	border: none;
+	border-radius: 6px;
+	background: transparent;
+	color: var(--fg-color, #eee);
+	cursor: pointer;
+	font-size: 13px;
+}
+
+.cmb-menu-item:hover {
+	background: rgba(255, 255, 255, 0.08);
+}
+
+.cmb-menu-item-primary {
+	font-weight: 600;
+	color: var(--primary-bg, #60a5fa);
+}
+
+/* --- Model Hub shell (floating, draggable, resizable) --- */
+.cmb-model-hub-mask {
+	position: fixed !important;
+	inset: 0 !important;
+	display: none;
+	pointer-events: none !important;
+	z-index: 10050 !important;
+	background: transparent !important;
+}
+
+#cmb-model-hub {
+	position: fixed !important;
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	min-width: 520px;
+	min-height: 360px;
+	max-width: calc(100vw - 24px);
+	max-height: calc(100vh - 24px);
+	pointer-events: auto !important;
+	background: var(--comfy-menu-bg, #1a1a1a);
+	border: 1px solid var(--border-color, #444);
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+}
+
+.cmb-floating-drag-handle {
+	cursor: grab;
+	user-select: none;
+}
+
+.cmb-floating-drag-handle.cmb-floating-dragging {
+	cursor: grabbing;
+}
+
+.cmb-floating-window.cmb-floating-resizing {
+	user-select: none;
+}
+
+.cmb-floating-resize-handle {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 18px;
+	height: 18px;
+	cursor: nwse-resize;
+	z-index: 2;
+	background: linear-gradient(
+		135deg,
+		transparent 0 45%,
+		var(--border-color, #666) 45% 52%,
+		transparent 52% 62%,
+		var(--border-color, #666) 62% 68%,
+		transparent 68% 100%
+	);
+}
+
+.cmb-floating-resize-handle:hover {
+	filter: brightness(1.2);
+}
+
+.cmb-model-hub-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 12px 16px;
+	border-bottom: 1px solid var(--border-color, #333);
+}
+
+.cmb-model-hub-header h2 {
+	margin: 0;
+	font-size: 1.1rem;
+}
+
+.cmb-model-hub-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	padding: 8px 12px;
+	border-bottom: 1px solid var(--border-color, #333);
+	background: rgba(0, 0, 0, 0.15);
+}
+
+.cmb-model-hub-tab {
+	padding: 7px 12px;
+	border: 1px solid transparent;
+	border-radius: 6px;
+	background: transparent;
+	color: var(--fg-color, #ccc);
+	cursor: pointer;
+	font-size: 12px;
+	white-space: nowrap;
+}
+
+.cmb-model-hub-tab:hover {
+	background: rgba(255, 255, 255, 0.06);
+}
+
+.cmb-model-hub-tab-active {
+	background: rgba(255, 255, 255, 0.1);
+	border-color: var(--border-color, #555);
+	color: var(--fg-color, #fff);
+	font-weight: 600;
+}
+
+.cmb-model-hub-content {
+	position: relative;
+	flex: 1;
+	min-height: 0;
+	overflow: hidden;
+	padding: 0 !important;
+}
+
+#cmb-model-hub .cmb-model-hub-panel {
+	height: 100%;
+	overflow: auto;
+	padding: 12px;
+}
+
+/* Inactive panels must hide — .cmb-import-url / .cmb-github-panel display:flex was overriding display:none */
+#cmb-model-hub .cmb-model-hub-panel:not(.cmb-tab-active),
+#cmb-model-hub .cmb-model-hub-panel[hidden] {
+	display: none !important;
+}
+
+#cmb-model-hub .cmb-model-hub-panel.cmb-import-url.cmb-tab-active,
+#cmb-model-hub .cmb-model-hub-panel.cmb-github-panel.cmb-tab-active {
+	display: flex !important;
+	flex-direction: column;
+}
+
+#cmb-model-hub .cmb-model-hub-panel.cmb-tab-active:not(.cmb-import-url):not(.cmb-github-panel):not(.cmb-model-hub-panel-browse) {
+	display: block !important;
+}
+
+#cmb-model-hub .cmb-model-hub-panel-browse.cmb-tab-active {
+	display: flex !important;
+	flex-direction: column;
+	padding: 0;
+	overflow: hidden;
+}
+
+/* Embedded catalog inside hub */
+#cmb-hub-panel-browse .cmb-embedded-catalog {
+	display: none;
+	flex-direction: column;
+	width: 100% !important;
+	height: 100% !important;
+	max-height: 100% !important;
+	margin: 0 !important;
+	border: none !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	position: relative !important;
+}
+
+#cmb-hub-panel-browse .cmb-embedded-catalog .p-dialog-content {
+	flex: 1;
+	min-height: 0;
+	overflow: hidden;
+}
+
+#cmb-hub-panel-browse .cmm-manager {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+#cmb-hub-panel-browse .cmm-manager-grid {
+	flex: 1;
+	min-height: 240px;
+}
+
+.cmm-manager {
+	z-index: auto !important;
+}
+
+/* --- Import URL tab --- */
+.cmb-import-title {
+	margin: 0 0 4px;
+	font-size: 1.05rem;
+}
+
+.cmb-import-url {
+	max-width: 640px;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.cmb-import-label {
+	font-size: 12px;
+	color: var(--descrip-text, #aaa);
+	margin-top: 4px;
+}
+
+.cmb-import-input,
+.cmb-import-folder,
+.cmb-import-filename {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.cmb-import-desc,
+.cmb-import-hint,
+.cmb-import-folder-hint {
+	font-size: 13px;
+	color: var(--descrip-text, #aaa);
+	line-height: 1.45;
+}
+
+.cmb-import-folder-hint {
+	margin: -6px 0 10px;
+	font-size: 12px;
+	opacity: 0.85;
+}
+
+.cmb-import-hint code {
+	font-size: 12px;
+	color: var(--descrip-text, #bbb);
+}
+
+.cmb-import-warning {
+	font-size: 13px;
+	color: #fbbf24;
+	line-height: 1.45;
+	margin: 0;
+}
+
+.cmb-import-actions {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-top: 8px;
+}
+
+.cmb-import-status {
+	font-size: 12px;
+	color: var(--descrip-text, #aaa);
+}
+
+/* --- GitHub tab (model + custom node) --- */
+.cmb-github-panel {
+	flex-direction: column;
+	gap: 20px;
+	max-width: 640px;
+}
+
+.cmb-github-section {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding-bottom: 16px;
+	border-bottom: 1px solid var(--border-color, #333);
+}
+
+.cmb-github-section:last-child {
+	border-bottom: none;
+	padding-bottom: 0;
+}
+
+.cmb-github-section-title {
+	margin: 0 0 4px;
+	font-size: 1.05rem;
+}
+
+/* --- Per-tab API token (Civitai / Hugging Face) --- */
+.cmb-import-token {
+	margin: 0 0 16px;
+	padding: 12px 14px;
+	border: 1px solid var(--border-color, #444);
+	border-radius: 8px;
+	background: var(--comfy-menu-bg, rgba(0, 0, 0, 0.15));
+}
+
+.cmb-import-token-label {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	margin-bottom: 8px;
+}
+
+.cmb-import-token-optional {
+	font-weight: normal;
+	color: var(--descrip-text, #888);
+	font-size: 12px;
+}
+
+.cmb-import-token-status {
+	font-size: 12px;
+	color: var(--descrip-text, #888);
+}
+
+.cmb-import-token-status-ok {
+	color: var(--success-color, #6bcf7f);
+}
+
+.cmb-import-token-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	align-items: center;
+}
+
+.cmb-import-token-input {
+	flex: 1 1 220px;
+	min-width: 180px;
+}
+
+.cmb-import-token-note {
+	margin: 8px 0 0;
+	font-size: 12px;
+	color: var(--descrip-text, #888);
+}
