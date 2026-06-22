@@ -143,3 +143,11 @@ Setup copies vendored Manager assets from:
 ## License
 
 GPL-3.0-only — see [LICENSE](LICENSE). This project includes modifications to ComfyUI-Manager frontend modules and integrates with the ComfyUI-Manager Python package.
+
+## GitHub SEO (optional)
+
+If you maintain this repo on GitHub, set **About → Description** to something like:
+
+> ComfyUI download manager for the new frontend — model catalog, Civitai, Hugging Face, GitHub, and direct URL imports via ComfyUI-Manager.
+
+Suggested **Topics**: `comfyui`, `comfyui-manager`, `download-manager`, `model-download`, `custom-node`, `huggingface`, `civitai`
