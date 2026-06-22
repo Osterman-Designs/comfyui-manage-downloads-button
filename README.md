@@ -1,8 +1,12 @@
-# ComfyUI Manage Downloads Button
+# ComfyUI Download Manager — Model Download Hub for the New Frontend
 
-Bring **ComfyUI-Manager’s model catalog and download hub** to the **new ComfyUI frontend** without enabling legacy UI.
+A **ComfyUI download manager** bridge: bring **ComfyUI-Manager’s model catalog and download hub** to the **new ComfyUI frontend** without enabling legacy UI. Adds a floating **Manage Downloads** button and a full **model download manager** (Browse, Hugging Face, Civitai, GitHub, direct URL).
+
+Also referred to as the **Manage Downloads Button** / **Manager Bridge** extension.
 
 This is a community extension for [ComfyUI](https://github.com/comfyanonymous/ComfyUI). It is **not** affiliated with or maintained by Comfy-Org. It builds on [ComfyUI-Manager](https://github.com/Comfy-Org/ComfyUI-Manager) (GPL-3.0).
+
+**Search terms:** ComfyUI download manager, ComfyUI model downloads, ComfyUI Manager model catalog, download models new UI, Civitai/Hugging Face import for ComfyUI.
 
 ## What you get
 
