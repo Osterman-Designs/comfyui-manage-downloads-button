@@ -6,10 +6,8 @@ REM ComfyUI Manager Bridge - setup
 REM Run from this repo folder, or from ComfyUI portable root.
 REM ============================================================================
 
-set "BRIDGE_SRC=%~dp0"
-if "%BRIDGE_SRC:~-1%"=="\" set "BRIDGE_SRC=%BRIDGE_SRC:~0,-1%"
-
-REM --- Button layout (uncomment ONE) ---
+call :find_portable_roots "%~dp0"
+if errorlevel 1 exit /b 1
 REM float = single Manager FAB floating over the graph canvas (default)
 REM off   = hide bridge buttons entirely
 set "MANAGER_BTN=float"
@@ -22,28 +20,6 @@ REM set "QUICK_CATALOG=1"
 REM --- Optional pip patch (uncomment to re-apply after comfyui-manager upgrades) ---
 set "APPLY_PIP_PATCH=0"
 REM set "APPLY_PIP_PATCH=1"
-
-set "ROOT="
-if exist "%BRIDGE_SRC%\bridge_routes.py" (
-  pushd "%BRIDGE_SRC%\.."
-  if exist "ComfyUI\main.py" if exist "python_embeded\python.exe" set "ROOT=%CD%"
-  popd
-)
-if not defined ROOT (
-  if exist "%CD%\ComfyUI\main.py" if exist "%CD%\python_embeded\python.exe" (
-    set "ROOT=%CD%"
-    if exist "%ROOT%\manager-bridge\bridge_routes.py" set "BRIDGE_SRC=%ROOT%\manager-bridge"
-    if exist "%ROOT%\comfyui-manage-downloads-button\bridge_routes.py" set "BRIDGE_SRC=%ROOT%\comfyui-manage-downloads-button"
-  )
-)
-
-if not defined ROOT (
-  echo ERROR: Could not find ComfyUI portable root.
-  echo   Clone this repo into your portable folder, then run:
-  echo     comfyui-manage-downloads-button\setup_model_manager.bat
-  echo   Or run from portable root if the repo folder is a sibling of ComfyUI\ and python_embeded\.
-  exit /b 1
-)
 
 set "EXT_SRC=%BRIDGE_SRC%\extension\comfy-manager-bridge"
 set "EXT_DST=%ROOT%\ComfyUI\custom_nodes\comfy-manager-bridge"
@@ -126,4 +102,52 @@ echo   1. Start ComfyUI with --enable-manager
 echo   2. Set allow_git_url_install = true in ComfyUI\user\__manager\config.ini
 echo   3. Restart ComfyUI after backend updates; Ctrl+Shift+R after JS updates
 echo.
+exit /b 0
+
+:find_portable_roots
+set "ROOT="
+set "BRIDGE_SRC="
+set "BAT_DIR=%~1"
+if "%BAT_DIR:~-1%"=="\" set "BAT_DIR=%BAT_DIR:~0,-1%"
+
+if exist "%BAT_DIR%\bridge_routes.py" (
+  call :try_portable_root "%BAT_DIR%\.."
+  if defined ROOT set "BRIDGE_SRC=%BAT_DIR%"
+)
+
+if not defined ROOT if exist "%BAT_DIR%\ComfyUI\main.py" if exist "%BAT_DIR%\python_embeded\python.exe" (
+  set "ROOT=%BAT_DIR%"
+  call :pick_bridge_src "%ROOT%"
+)
+
+if not defined ROOT if exist "%CD%\ComfyUI\main.py" if exist "%CD%\python_embeded\python.exe" (
+  set "ROOT=%CD%"
+  call :pick_bridge_src "%ROOT%"
+)
+
+if not defined ROOT (
+  echo ERROR: Could not find ComfyUI portable root.
+  echo   Clone this repo into your portable folder, then run:
+  echo     comfyui-manage-downloads-button\setup_model_manager.bat
+  exit /b 1
+)
+
+if not defined BRIDGE_SRC (
+  echo ERROR: Found portable root %ROOT% but no bridge source folder.
+  exit /b 1
+)
+exit /b 0
+
+:try_portable_root
+set "CAND=%~1"
+pushd "%CAND%" 2>nul
+if errorlevel 1 exit /b 1
+if exist "ComfyUI\main.py" if exist "python_embeded\python.exe" set "ROOT=%CD%"
+popd
+exit /b 0
+
+:pick_bridge_src
+set "PR=%~1"
+if exist "%PR%\manager-bridge\bridge_routes.py" set "BRIDGE_SRC=%PR%\manager-bridge"
+if not defined BRIDGE_SRC if exist "%PR%\comfyui-manage-downloads-button\bridge_routes.py" set "BRIDGE_SRC=%PR%\comfyui-manage-downloads-button"
 exit /b 0
