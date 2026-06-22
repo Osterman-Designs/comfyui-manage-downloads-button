@@ -21,8 +21,11 @@ This is a community extension for [ComfyUI](https://github.com/comfyanonymous/Co
   - Other URL (direct `.safetensors`, `.ckpt`, `.pt`, etc.)
 - Manager power actions: unload models, free memory, restart
 - Local API token storage for gated Civitai / Hugging Face downloads
+- **Folder quick reference** on import tabs — collapsible cheat sheet for choosing the right model folder
 
 The built-in sidebar **Models** button (Model Library) is unchanged — it still browses local folders only.
+
+See [CHANGELOG.md](CHANGELOG.md) for release notes.
 
 ## Requirements
 
@@ -170,6 +173,7 @@ Setup copies vendored Manager assets from:
 | Doc | Description |
 |-----|-------------|
 | [AGENTS.md](AGENTS.md) | Session handoff for contributors and AI agents |
+| [CHANGELOG.md](CHANGELOG.md) | Release notes |
 | [docs/PROJECT-INDEX.md](docs/PROJECT-INDEX.md) | Complete file inventory and deploy mapping |
 | [docs/REFERENCE.md](docs/REFERENCE.md) | HTTP API, config, JS/Python module reference |
 

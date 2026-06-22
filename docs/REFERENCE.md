@@ -181,8 +181,9 @@ Browse tab patches `ModelManager.show/close` to render inside hub instead of sta
 
 ### `import-url.js`
 
-| Export | Description |
-|--------|-------------|
+| Export / constant | Description |
+|-------------------|-------------|
+| `FOLDER_CHEAT_SHEET_HTML` | Collapsible “Which folder?” table on import tabs |
 | `createImportPanel(providerId)` | Panel for `huggingface`, `civitai`, `other` |
 | `createGitHubPanel(stubManager)` | GitHub model download + Git node install sections |
 | `createImportUrlPanel()` | Legacy wrapper if used |

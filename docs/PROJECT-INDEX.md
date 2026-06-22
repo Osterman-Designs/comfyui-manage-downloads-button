@@ -22,6 +22,7 @@ comfyui-manage-downloads-button/     (clone name; local folder may be manager-br
 │   ├── PROJECT-INDEX.md             This file
 │   └── REFERENCE.md
 ├── AGENTS.md                        Session handoff
+├── CHANGELOG.md                     Release notes
 ├── README.md
 └── LICENSE
 ```

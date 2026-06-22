@@ -9,6 +9,7 @@ Use this file at the start of a new session when continuing work on this project
 | [README.md](README.md) | End users | Install, uninstall, configure, troubleshoot |
 | [docs/PROJECT-INDEX.md](docs/PROJECT-INDEX.md) | Developers / agents | Full file tree, deploy mapping, vendored assets, runtime paths |
 | [docs/REFERENCE.md](docs/REFERENCE.md) | Developers / agents | HTTP API, config keys, JS/Python symbols, WebSocket events, CSS, security, test URLs |
+| [CHANGELOG.md](CHANGELOG.md) | Everyone | Release notes and known limitations |
 | **AGENTS.md** (this file) | New AI sessions | Environment, constraints, test history, quick debug |
 
 **New session prompt example:** *Read `AGENTS.md`, `docs/PROJECT-INDEX.md`, and `docs/REFERENCE.md` in Osterman-Designs/comfyui-manage-downloads-button, then …*
@@ -111,6 +112,8 @@ Re-run setup after **comfyui-manager pip upgrades**.
 | Uninstall → reinstall cycle | OK after portable-root detection fix |
 | Browse catalog after reinstall | User confirmed ComfyUI + Hub up |
 | Flattened Git-installable layout + install.py | OK (install.py, setup, in-place refresh, uninstall) |
+| Hugging Face import (CLIP ViT → manual `clip_vision`) | OK — autopick gap documented |
+| Folder cheat sheet on import tabs | Shipped |
 
 ## Known fixes already shipped
 
@@ -120,12 +123,13 @@ Re-run setup after **comfyui-manager pip upgrades**.
 - `bridge-ui.js` instead of deprecated `scripts/ui.js`
 - Portable root detection in setup/uninstall bats
 - README: portable `cd`, configure docs, download manager SEO keywords
+- **Folder cheat sheet** (`FOLDER_CHEAT_SHEET_HTML` in `import-url.js`) on all import tabs
 
 ## Optional follow-ups (not requested / not done)
 
+- **Smarter folder autopick** — broaden rules (`clip-vit`, `open_clip`, etc.); “no guess detected” UX; optional HF API metadata
+- Expand **`FOLDER_TO_TYPE`** for all ComfyUI model folder names
 - Desktop / manual venv `setup.ps1` / `setup.sh`
-- Warn when SAM-like files go to `checkpoints` vs `sams`
-- “File already exists” before queue (user declined)
 - VideoHelperSuite `VHS.core.js` deprecation patch (may be overwritten on git pull)
 
 ## Compatibility notes
